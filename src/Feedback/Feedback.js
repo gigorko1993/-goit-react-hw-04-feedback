@@ -1,12 +1,23 @@
 import React from "react";
 import s from "./Feedback.module.css";
+import FeedbackOptions from "./FeedbackOptions";
+import Section from "./Section";
+import Statistics from "./Statistics";
+import Notification from "./Notification";
 console.log(s);
 
 export class Feedback extends React.Component {
   state = {
-    good: 1,
-    neutral: 3,
+    good: 0,
+    neutral: 0,
     bad: 0,
+  };
+  addFeedback = (e) => {
+    let name = e.target.name;
+    this.setState((prevState) => {
+      let handler = prevState[name];
+      return (prevState[name] = handler + 1);
+    });
   };
   countTotalFeedback = () => {
     const { good, neutral, bad } = this.state;
@@ -18,40 +29,36 @@ export class Feedback extends React.Component {
   render() {
     const { good, neutral, bad } = this.state;
     return (
-      <section>
-        <h2>Please leave feedback</h2>
-        <ul>
-          <li>
-            <button>Good</button>
-          </li>
-          <li>
-            <button>Neutral</button>
-          </li>
-          <li>
-            <button>Bad</button>
-          </li>
-        </ul>
-        <h2>Statistics</h2>
-        <ul>
-          <li>
-            <div>Good {good}</div>
-          </li>
-          <li>
-            <div>Neutral {neutral}</div>
-          </li>
-          <li>
-            <div>Bad {bad}</div>
-          </li>
-          <li>
-            <div>Total {this.countTotalFeedback()}</div>
-          </li>
-          <li>
-            <div>
-              Positive feedback {this.countPositiveFeedbackPercentage()}%
-            </div>
-          </li>
-        </ul>
-      </section>
+      <div>
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            options="good"
+            onFeedbackButtonClick={this.addFeedback}
+          />
+          <FeedbackOptions
+            options="neutral"
+            onFeedbackButtonClick={this.addFeedback}
+          />
+          <FeedbackOptions
+            options="bad"
+            onFeedbackButtonClick={this.addFeedback}
+          />
+        </Section>
+        <Section title="Statistics">
+          {this.countTotalFeedback() ? (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={this.countTotalFeedback()}
+              percent={this.countPositiveFeedbackPercentage()}
+            />
+          ) : null}
+          {this.countTotalFeedback() ? null : (
+            <Notification message="No feedback given" />
+          )}
+        </Section>
+      </div>
     );
   }
 }
