@@ -1,6 +1,7 @@
 .list {
-  color: aqua;
+  font-size: medium;
+  padding-bottom: 10px;
 }
 .item {
-  color: aqua;
+  padding-bottom: 10px;
 }
