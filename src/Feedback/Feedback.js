@@ -9,7 +9,7 @@ export function Feedback() {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
-  const total = good + neutral + bad;
+  const total = bad + good + neutral;
   const positiveFeedbackPercentage = Math.floor((good / total) * 100);
 
   return (
