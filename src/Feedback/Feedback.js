@@ -18,19 +18,19 @@ export function Feedback() {
         <FeedbackOptions
           options="good"
           onFeedbackButtonClick={() => {
-            setGood((p) => p + 1);
+            setGood((prevState) => prevState + 1);
           }}
         />
         <FeedbackOptions
           options="neutral"
           onFeedbackButtonClick={() => {
-            setNeutral((p) => p + 1);
+            setNeutral((prevState) => prevState + 1);
           }}
         />
         <FeedbackOptions
           options="bad"
           onFeedbackButtonClick={() => {
-            setBad((p) => p + 1);
+            setBad((prevState) => prevState + 1);
           }}
         />
       </Section>
